@@ -644,7 +644,10 @@ const OrderDetails = ({ id }: OrderDetailProps) => {
             />
           )}
           {showOrderEdit && (
-            <OrderEditModal close={() => setShowOrderEdit(false)} />
+            <OrderEditModal
+              orderId={order.id}
+              close={() => setShowOrderEdit(false)}
+            />
           )}
         </>
       )}
