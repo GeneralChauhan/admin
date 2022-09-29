@@ -55,6 +55,7 @@ import {
   PaymentDetails,
   PaymentStatusComponent,
 } from "./templates"
+import OrderEditModal from "../edit/modal"
 
 type OrderDetailFulfillment = {
   title: string
@@ -127,6 +128,7 @@ const OrderDetails = ({ id }: OrderDetailProps) => {
   }>(null)
 
   const [showFulfillment, setShowFulfillment] = useState(false)
+  const [showOrderEdit, setShowOrderEdit] = useState(false)
   const [showRefund, setShowRefund] = useState(false)
   const [fullfilmentToShip, setFullfilmentToShip] = useState(null)
 
@@ -335,6 +337,12 @@ const OrderDetails = ({ id }: OrderDetailProps) => {
               <BodyCard
                 className={"w-full mb-4 min-h-0 h-auto"}
                 title="Summary"
+                actionables={[
+                  {
+                    label: "Edit Order",
+                    onClick: () => setShowOrderEdit(true),
+                  },
+                ]}
               >
                 <div className="mt-6">
                   {order.items?.map((item, i) => (
@@ -634,6 +642,9 @@ const OrderDetails = ({ id }: OrderDetailProps) => {
               fulfillment={fullfilmentToShip}
               orderId={order.id}
             />
+          )}
+          {showOrderEdit && (
+            <OrderEditModal close={() => setShowOrderEdit(false)} />
           )}
         </>
       )}
